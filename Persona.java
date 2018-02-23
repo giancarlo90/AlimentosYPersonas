@@ -49,7 +49,7 @@ public class Persona
         }
         return caloriasADevolver;
     }
-    
+
     /**
      * Metodo que permite saber las calorias ingeridas por la persona en ese momento
      */
@@ -71,5 +71,27 @@ public class Persona
             calculoBasal = (10 * peso) + (6 * altura) + (5 * edad) - 161;
         }
         return calculoBasal;
+    }
+
+    /**
+     * Metodo para poder preguntarle cosas a la persona basandonos en si ha llegado, 
+     * o no, al maximo de su indice basal
+     */
+    public String contestar(String pregunta)
+    {
+        String aDevolver = null;
+        if(caloriasIngeridas <= metabolismoBasal()  && !pregunta.toLowerCase().contains(nombre.toLowerCase())){
+            if(pregunta.length() % 3 == 0){
+                aDevolver = "SI";
+            }
+            else{
+                aDevolver = "NO";
+            }
+        }
+        else{
+            aDevolver = pregunta.toUpperCase();
+            System.out.println(aDevolver);
+        }
+        return aDevolver;
     }
 }
