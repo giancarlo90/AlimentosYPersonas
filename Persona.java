@@ -31,7 +31,7 @@ public class Persona
         this.edad = edad;
         metabolismoBasal();
         caloriasIngeridas = 0;
-        listaComida = new ArrayList<>();
+        listaComida = new ArrayList<>(); //inicializada el ArrayList
     }
 
     /**
@@ -109,16 +109,14 @@ public class Persona
         String alimentoMasCalorico = null; //Variable donde guardaremos la comida mas calorica
         //Bucle que busca la comida mas calorica y la imprime por pantalla
         if(listaComida.size()>0) {
-            for(int j = 0; j < listaComida.size(); j++){
-                int caloriasMaximas = 0;
-                for(int i=0; i < listaComida.size(); i++) {
-                    if(listaComida.get(i).getCalorias() >= caloriasMaximas){
-                        alimentoMasCalorico = listaComida.get(i).getNombreComida();
-                        caloriasMaximas = listaComida.get(i).getCalorias();
-                    }
+            int caloriasMaximas = 0;
+            for(int i=0; i < listaComida.size(); i++) {
+                if(listaComida.get(i).getCalorias() >= caloriasMaximas){
+                    alimentoMasCalorico = listaComida.get(i).getNombreComida();
+                    caloriasMaximas = listaComida.get(i).getCalorias();
                 }
-                System.out.println(alimentoMasCalorico);
             }
+            System.out.println(alimentoMasCalorico);
         }
         return alimentoMasCalorico;
     }
