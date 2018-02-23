@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 /**
  * Write a description of class Persona here.
@@ -15,6 +16,7 @@ public class Persona
     private int edad; //expresado en años
     private int caloriasIngeridas;
     private int calculoBasal;
+    private ArrayList<Comida> listaComida; //Lista para guardar los alimentos ingeridos
 
     /**
      * Constructor for objects of class Persona
@@ -29,6 +31,7 @@ public class Persona
         this.edad = edad;
         metabolismoBasal();
         caloriasIngeridas = 0;
+        listaComida = new ArrayList<>();
     }
 
     /**
@@ -43,6 +46,7 @@ public class Persona
         int caloriasADevolver = comida.getCalorias();
         if(caloriasIngeridas <= metabolismoBasal()){
             caloriasIngeridas += caloriasADevolver;
+            listaComida.add(comida);
         }
         else{
             caloriasADevolver = -1;
@@ -79,8 +83,10 @@ public class Persona
      */
     public String contestar(String pregunta)
     {
-        String aDevolver = null;
+        String aDevolver = null; //Variable que utilizaremos para devolver la respuesta
+        //Comprueba si se ha llegado al limite de calorias en funcion del indice basal o si incluye el nombre en la pregunta
         if(caloriasIngeridas <= metabolismoBasal()  && !pregunta.toLowerCase().contains(nombre.toLowerCase())){
+            //Calcula si el numero de caracteres de la pregunta es divisible entre 3
             if(pregunta.length() % 3 == 0){
                 aDevolver = "SI";
             }
@@ -93,5 +99,27 @@ public class Persona
             System.out.println(aDevolver);
         }
         return aDevolver;
+    }
+
+    /**
+     * Metodo que calcula el alimento con mas calorias ingerido hasta el momento
+     */
+    public String getAlimentoMasCaloricoConsumido()
+    {
+        String alimentoMasCalorico = null; //Variable donde guardaremos la comida mas calorica
+        //Bucle que busca la comida mas calorica y la imprime por pantalla
+        if(listaComida.size()>0) {
+            for(int j = 0; j < listaComida.size(); j++){
+                int caloriasMaximas = 0;
+                for(int i=0; i < listaComida.size(); i++) {
+                    if(listaComida.get(i).getCalorias() >= caloriasMaximas){
+                        alimentoMasCalorico = listaComida.get(i).getNombreComida();
+                        caloriasMaximas = listaComida.get(i).getCalorias();
+                    }
+                }
+                System.out.println(alimentoMasCalorico);
+            }
+        }
+        return alimentoMasCalorico;
     }
 }
